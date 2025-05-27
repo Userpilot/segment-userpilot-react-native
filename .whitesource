@@ -1,0 +1,6 @@
+{
+    "settingsInheritedFrom": "userpilot/whitesource-config@main",
+    "remediateSettings": {
+        "enableRenovate": false
+    }
+}
