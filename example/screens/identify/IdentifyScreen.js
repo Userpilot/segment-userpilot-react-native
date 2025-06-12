@@ -17,6 +17,7 @@ const IdentifyScreen = () => {
   const { identify, group } = useAnalytics();
 
   const [userID, setUserID] = useState('');
+  const [groupID, setGroupID] = useState('');
   const [userProperties, setUserProperties] = useState([
     { key: '', value: '' },
     { key: '', value: '' },
@@ -26,7 +27,7 @@ const IdentifyScreen = () => {
     { key: '', value: '' },
   ]);
 
-  const handleSubmit = () => {
+  const identifyEvent = () => {
     if (userID.trim() === '') {
       Alert.alert('Error', 'Username cannot be empty', [
         { text: 'OK', onPress: () => console.log('Alert closed') },
@@ -39,16 +40,27 @@ const IdentifyScreen = () => {
       return acc;
     }, {});
 
+    console.log('UserID:', userID);
+    console.log('User Properties:', userPropertiesDict);
+    identify(userID, userPropertiesDict);
+  };
+
+  const groupEvent = () => {
+    if (groupID.trim() === '') {
+      Alert.alert('Error', 'GroupID cannot be empty', [
+        { text: 'OK', onPress: () => console.log('Alert closed') },
+      ]);
+      return;
+    }
+
     const companyDict = company.reduce((acc, curr) => {
       if (curr.key && curr.value) acc[curr.key] = curr.value;
       return acc;
     }, {});
 
-    console.log('Username:', userID);
-    console.log('User Properties:', userPropertiesDict);
+    console.log('groupID:', userID);
     console.log('Company:', companyDict);
-    identify(userID, userPropertiesDict);
-    // group(userID, companyDict);
+    group(groupID, companyDict);
   };
 
   const handleAnonymous = () => {
@@ -115,6 +127,15 @@ const IdentifyScreen = () => {
 
           <View style={styles.spacer} />
 
+          <Text style={styles.title}>Group ID</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Group ID"
+            value={userID}
+            onChangeText={setGroupID}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
           <Text style={styles.title}>User company properties</Text>
           {company.map((comp, index) => (
             <View style={styles.row} key={index}>
@@ -139,8 +160,11 @@ const IdentifyScreen = () => {
         </ScrollView>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.filledButton} onPress={handleSubmit}>
+          <TouchableOpacity style={styles.filledButton} onPress={identifyEvent}>
             <Text style={styles.filledButtonText}>Identify</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.filledButton} onPress={groupEvent}>
+            <Text style={styles.filledButtonText}>Group</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.outlineButton}

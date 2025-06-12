@@ -1,12 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useCallback, useEffect } from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  NativeEventEmitter,
-  NativeModules,
-} from 'react-native';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import MainScreen from './screens/main/MainScreen';
