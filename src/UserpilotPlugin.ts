@@ -10,44 +10,85 @@ import {
 } from '@segment/analytics-react-native';
 import type { SegmentUserpilotSettings } from './types';
 import * as Userpilot from '@userpilot/react-native';
+import { NativeModules, NativeEventEmitter } from 'react-native';
 
+/**
+ * Importing the Userpilot module and NativeEventEmitter from react-native
+ * This will allow us to interact with the Userpilot SDK and listen for events.
+ */
+const { UserpilotReactNative } = NativeModules;
+const eventEmitter = new NativeEventEmitter(UserpilotReactNative);
+let subscriptions: any[] = [];
+
+/**
+ * UserpilotPlugin is a Segment destination plugin that integrates Userpilot with Segment for mobile applications.
+ * It allows tracking user events, identifying users, and managing user sessions with Userpilot.
+ */
 export class UserpilotPlugin extends DestinationPlugin {
   type = PluginType.destination;
   key = 'Userpilot Mobile';
   private isInitialized: boolean = false;
+  private logging: boolean;
 
-  async update(settings: SegmentAPISettings, _: UpdateType) {
+  /**
+   * Constructor for UserpilotPlugin.
+   * @param {boolean} logging - Optional parameter to enable logging. Default is false.
+   */
+  constructor(logging = false) {
+    super();
+    this.logging = logging;
+  }
+
+  // This plugin is used to integrate Userpilot with Segment for mobile applications.
+  update(settings: SegmentAPISettings, _: UpdateType) {
     if (this.isInitialized) return;
 
     const userpilotSettings = settings.integrations[
       this.key
     ] as SegmentUserpilotSettings;
 
-    if (!userpilotSettings) return;
+    if (userpilotSettings === undefined) {
+      return;
+    }
 
-    await Userpilot.setup(userpilotSettings.token, {});
-    this.isInitialized = true;
+    try {
+      Userpilot.setup(userpilotSettings.token, { logging: this.logging });
+      this.isInitialized = true;
+    } catch (error) {
+      console.error('Userpilot setup failed:', error);
+    }
   }
 
+  // This method is called when the plugin is initialized.
   identify(event: IdentifyEventType) {
-    if (this.isInitialized && event.userId != null) {
-      Userpilot.identify(event.userId, event.traits);
+    if (!this.isInitialized) return event;
+
+    const userId = event.userId?.trim() || event.anonymousId?.trim();
+    if (userId) {
+      Userpilot.identify(userId, event.traits);
     }
+
     return event;
   }
 
-  async group(event: GroupEventType) {
-    if (this.isInitialized) {
-      const userID = await this.getUserIDFromSettings();
-      if (userID) {
-        Userpilot.identify(userID, undefined, event.traits);
-      } else {
-        console.warn('User ID not found. Skipping identify.');
-      }
-    }
+  // This method is called when a group event is received.
+  group(event: GroupEventType) {
+    if (!this.isInitialized) return event;
+
+    const userId = event.userId?.trim() || event.anonymousId?.trim();
+    if (!userId) return event;
+
+    const company = {
+      id: event.groupId,
+      ...(event.traits || {}),
+    };
+
+    Userpilot.identify(userId, undefined, company);
+
     return event;
   }
 
+  // This method is called when a track event is received.
   track(event: TrackEventType) {
     if (this.isInitialized) {
       Userpilot.track(event.event, event.properties);
@@ -55,6 +96,7 @@ export class UserpilotPlugin extends DestinationPlugin {
     return event;
   }
 
+  // This method is called when a screen event is received.
   screen(event: ScreenEventType) {
     if (this.isInitialized) {
       Userpilot.screen(event.name);
@@ -62,41 +104,47 @@ export class UserpilotPlugin extends DestinationPlugin {
     return event;
   }
 
+  // This method is called when the plugin is reset.
   reset(): void {
     if (this.isInitialized) {
-      Userpilot.reset();
+      Userpilot.logout();
     }
   }
+}
 
-  private safeParseJSON(str: any): any {
-    try {
-      return JSON.parse(str);
-    } catch {
-      return null;
-    }
+/**
+ * Function to start listening to Userpilot events.
+ */
+export function startListeningToUserpilotEvents({
+  onAnalyticsEvent,
+  onExperienceEvent,
+  onNavigationEvent,
+}: any) {
+  // Clear existing listeners first
+  stopListeningToUserpilotEvents();
+
+  if (onAnalyticsEvent) {
+    subscriptions.push(
+      eventEmitter.addListener('UserpilotAnalyticsEvent', onAnalyticsEvent)
+    );
   }
 
-  private async getUserIDFromSettings(): Promise<string | null> {
-    try {
-      const settingsData = await Userpilot.settings();
-
-      const userField = settingsData?.User;
-      let userObject = null;
-
-      if (typeof userField === 'string') {
-        const trimmed = userField.trim();
-        userObject = this.safeParseJSON(trimmed);
-      } else if (typeof userField === 'object' && userField !== null) {
-        userObject = userField;
-      }
-
-      if (userObject?.userID) {
-        return userObject.userID;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      return null;
-    }
+  if (onExperienceEvent) {
+    subscriptions.push(
+      eventEmitter.addListener('UserpilotExperienceEvent', onExperienceEvent)
+    );
   }
+
+  if (onNavigationEvent) {
+    subscriptions.push(
+      eventEmitter.addListener('UserpilotNavigationEvent', (event: any) => {
+        onNavigationEvent(event);
+      })
+    );
+  }
+}
+
+export function stopListeningToUserpilotEvents() {
+  subscriptions.forEach((sub) => sub.remove());
+  subscriptions = [];
 }

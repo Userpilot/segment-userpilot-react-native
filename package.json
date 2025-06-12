@@ -21,7 +21,8 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "./scripts/release.sh",
-    "pods": "cd example && pod-install --quiet"
+    "pods": "cd example && pod-install --quiet",
+    "build": "tsc"
   },
   "keywords": [
     "segment",
@@ -40,9 +41,10 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "dependencies": {
-    "@userpilot/react-native": "^0.0.1-beta.1",
-    "@segment/analytics-react-native": "^2.21.0"
+  "peerDependencies": {
+    "@userpilot/react-native": "^0.0.1-beta.2",
+    "@segment/analytics-react-native": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

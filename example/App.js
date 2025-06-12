@@ -1,27 +1,29 @@
-import React, { useCallback, useEffect, useState } from 'react';
+/* eslint-disable react/react-in-jsx-scope */
+import { useCallback, useEffect } from 'react';
 import {
   Text,
   TouchableOpacity,
   StyleSheet,
   NativeEventEmitter,
   NativeModules,
-  Platform,
-  PermissionsAndroid,
 } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-
 import MainScreen from './screens/main/MainScreen';
 import IdentifyScreen from './screens/identify/IdentifyScreen';
 import ScreenOne from './screens/screens/ScreenOne';
 import ScreenTwo from './screens/screens/ScreenTwo';
 import DeepLinkScreen from './screens/deeplink/DeepLinkScreen';
 import TrackEventsScreen from './screens/events/TrackEventsScreen';
-import { createClient } from '@segment/analytics-react-native';
+import { Platform, PermissionsAndroid } from 'react-native';
 import { useAnalytics } from '@segment/analytics-react-native';
-import { UserpilotPlugin } from '@userpilot/segment-react-native';
+import {
+  startListeningToUserpilotEvents,
+  stopListeningToUserpilotEvents,
+} from '@userpilot/segment-react-native';
 
 const Stack = createStackNavigator();
+
 const commonScreenOptions = {
   headerStyle: { backgroundColor: '#fff' },
   headerTintColor: '#000',
@@ -31,11 +33,6 @@ const commonScreenOptions = {
 const App = () => {
   const { reset } = useAnalytics();
   const navigation = useNavigation();
-
-  const segmentClient = createClient({
-    writeKey: 'SEGMENT_WRITE_KEY',
-  });
-  segmentClient.add({ plugin: new UserpilotPlugin() });
 
   const requestNotificationPermission = useCallback(async () => {
     if (Platform.OS === 'android' && Platform.Version >= 33) {
@@ -95,22 +92,22 @@ const App = () => {
   );
 
   useEffect(() => {
-    const eventEmitter = new NativeEventEmitter(
-      NativeModules.UserpilotReactNative
-    );
-    const listeners = [
-      eventEmitter.addListener('UserpilotAnalyticsEvent', (event) =>
-        console.log('Analytics Event:', event)
-      ),
-      eventEmitter.addListener('UserpilotExperienceEvent', (event) =>
-        console.log('Experience Event:', event)
-      ),
-      eventEmitter.addListener('UserpilotNavigationEvent', (event) => {
+    startListeningToUserpilotEvents({
+      onAnalyticsEvent: (event) => {
+        console.log('Analytics Event:', event);
+      },
+      onExperienceEvent: (event) => {
+        console.log('Experience Event:', event);
+      },
+      onNavigationEvent: (event) => {
         console.log('Navigation Event', event);
-        if (event?.url) handleDeepLink(event.url);
-      }),
-    ];
-    return () => listeners.forEach((listener) => listener.remove());
+        if (event?.url) {
+          handleDeepLink(event.url);
+        }
+      },
+    });
+
+    return () => stopListeningToUserpilotEvents();
   }, [handleDeepLink]);
 
   return (

@@ -1170,29 +1170,7 @@ PODS:
     - React-utils (= 0.74.1)
   - RNCAsyncStorage (1.24.0):
     - React-Core
-  - RNScreens (3.37.0):
-    - DoubleConversion
-    - glog
-    - hermes-engine
-    - RCT-Folly (= 2024.01.01.00)
-    - RCTRequired
-    - RCTTypeSafety
-    - React-Codegen
-    - React-Core
-    - React-debug
-    - React-Fabric
-    - React-featureflags
-    - React-graphics
-    - React-ImageManager
-    - React-NativeModulesApple
-    - React-RCTFabric
-    - React-RCTImage
-    - React-rendererdebug
-    - React-utils
-    - ReactCommon/turbomodule/bridging
-    - ReactCommon/turbomodule/core
-    - Yoga
-  - RNVectorIcons (10.2.0):
+  - RNGestureHandler (2.25.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1213,16 +1191,18 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - segment-analytics-react-native (2.21.0):
+  - RNPermissions (5.4.1):
+    - React-Core
+  - segment-analytics-react-native (2.21.1):
     - React-Core
     - sovran-react-native
   - SocketRocket (0.7.0)
   - sovran-react-native (1.1.3):
     - React-Core
   - SwiftPhoenixClient (5.2.2)
-  - Userpilot (0.0.1-beta.8):
+  - Userpilot (0.0.1-rc.2):
     - SwiftPhoenixClient (= 5.2.2)
-  - UserpilotReactNative (0.0.1-alpha.3):
+  - UserpilotReactNative (0.0.1-beta.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1242,7 +1222,7 @@ PODS:
     - React-utils
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - Userpilot (~> 0.0.1-beta.5)
+    - Userpilot (~> 0.0.1-rc.2)
     - Yoga
   - Yoga (0.0.0)
 
@@ -1305,8 +1285,8 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
-  - RNScreens (from `../node_modules/react-native-screens`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - "segment-analytics-react-native (from `../node_modules/@segment/analytics-react-native`)"
   - "sovran-react-native (from `../node_modules/@segment/sovran-react-native`)"
   - "UserpilotReactNative (from `../node_modules/@userpilot/react-native`)"
@@ -1432,10 +1412,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
-  RNScreens:
-    :path: "../node_modules/react-native-screens"
-  RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   segment-analytics-react-native:
     :path: "../node_modules/@segment/analytics-react-native"
   sovran-react-native:
@@ -1502,14 +1482,14 @@ SPEC CHECKSUMS:
   React-utils: 67574b07bff4429fd6c4d43a7fad8254d814ee20
   ReactCommon: 64c64f4ae1f2debe3fab1800e00cb8466a4477b7
   RNCAsyncStorage: b6410dead2732b5c72a7fdb1ecb5651bbcf4674b
-  RNScreens: ef68e50aea531dd00c592ba4683bbcb89d4d2e1a
-  RNVectorIcons: 6c795cacc9276decc31d8e1a139b9cc6fc0479ca
-  segment-analytics-react-native: dab2ae61d917629b8d040b572f9f7a11b2cc5940
+  RNGestureHandler: 0185e60058b516fe374233587dbb48af62ec5f5a
+  RNPermissions: 2bde0f50340b36bef585008b5762500ca8c277d6
+  segment-analytics-react-native: 5c3e8a4ee6d7532a011ed862d7c7d4fb5e5303e2
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   sovran-react-native: a3ad3f8ff90c2002b2aa9790001a78b0b0a38594
   SwiftPhoenixClient: 933ac9c7d2202d9bc6ad3546a032e443e252e0f6
-  Userpilot: 2ffad2387897a19a2ea5328de39b52e76803941b
-  UserpilotReactNative: 82ba1a04720d50f2a7c730a808bd68237bdcc353
+  Userpilot: a117624354c9cfa2ce6664d61a46b26bc85a2306
+  UserpilotReactNative: 84258cb1b51b8af647f0a64c5080162910b5bbdf
   Yoga: 348f8b538c3ed4423eb58a8e5730feec50bce372
 
 PODFILE CHECKSUM: 7495c3048abed611b69701524aa6b7486decf9a8

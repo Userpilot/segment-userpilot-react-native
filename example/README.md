@@ -8,11 +8,11 @@ Refer to https://reactnative.dev/docs/environment-setup for general React Native
 
 ```sh
 # Install dependencies for the plugin. Only necessary because this is referenced locally by the example app.
-npm install
+yarn
 
 # Install dependencies for the example app.
 cd ./example
-npm install
+yarn
 
 # Install CocoaPods
 cd ./iOS

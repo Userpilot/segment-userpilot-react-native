@@ -11,7 +11,6 @@ import {
   Platform,
 } from 'react-native';
 import { useScreenTracking } from '../../utils/ScreenTracker';
-import * as Userpilot from '@userpilot/react-native';
 import { useAnalytics } from '@segment/analytics-react-native';
 
 const IdentifyScreen = () => {
@@ -49,11 +48,11 @@ const IdentifyScreen = () => {
     console.log('User Properties:', userPropertiesDict);
     console.log('Company:', companyDict);
     identify(userID, userPropertiesDict);
-    group(userID, companyDict);
+    // group(userID, companyDict);
   };
 
   const handleAnonymous = () => {
-    Userpilot.anonymous();
+    identify();
   };
 
   const handleUserPropertiesChange = (index, field, value) => {
@@ -77,6 +76,7 @@ const IdentifyScreen = () => {
   return (
     <View style={styles.screen}>
       <KeyboardAvoidingView
+        // eslint-disable-next-line react-native/no-inline-styles
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >

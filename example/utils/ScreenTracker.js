@@ -8,7 +8,6 @@ export const useScreenTracking = (screenName) => {
   useFocusEffect(
     React.useCallback(() => {
       analytics.screen(screenName);
-      console.log(`${screenName} resumed`);
     }, [analytics, screenName])
   );
 };

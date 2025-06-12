@@ -1,5 +1,29 @@
-import { AppRegistry } from 'react-native';
+/* eslint-disable react/react-in-jsx-scope */
 import App from './App';
 import { name as appName } from './app.json';
+import { AppRegistry, StatusBar } from 'react-native';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import {
+  createClient,
+  AnalyticsProvider,
+} from '@segment/analytics-react-native';
+import { UserpilotPlugin } from '@userpilot/segment-react-native';
 
-AppRegistry.registerComponent(appName, () => App);
+const segmentClient = createClient({
+  writeKey: 'rxsJqbKebdnai2HU9HG8XaNBAAz7DwHS',
+  debug: false,
+});
+segmentClient.add({ plugin: new UserpilotPlugin(false) });
+
+const Index = () => (
+  <>
+    <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+    <AnalyticsProvider client={segmentClient}>
+      <NavigationContainer theme={DefaultTheme}>
+        <App />
+      </NavigationContainer>
+    </AnalyticsProvider>
+  </>
+);
+
+AppRegistry.registerComponent(appName, () => Index);

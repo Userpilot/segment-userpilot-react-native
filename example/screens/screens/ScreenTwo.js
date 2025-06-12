@@ -1,12 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useScreenTracking } from '../../utils/ScreenTracker';
-import * as Userpilot from '@userpilot/react-native';
 
 const ScreenTwo = () => {
-  const goToNextScreen = () => {
-    Userpilot.triggerExperience('');
-  };
+  const goToNextScreen = () => {};
 
   useScreenTracking('screen two');
 
