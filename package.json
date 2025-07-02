@@ -1,6 +1,6 @@
 {
   "name": "@userpilot/segment-react-native",
-  "version": "4.4.1",
+  "version": "1.0.0",
   "description": "Segment destination plugin for Userpilot.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -42,7 +42,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@userpilot/react-native": "^0.0.1-beta.2",
+    "@userpilot/react-native": "^1.0.1",
     "@segment/analytics-react-native": "*",
     "react-native": "*"
   },

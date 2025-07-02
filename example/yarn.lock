@@ -2759,10 +2759,10 @@
     "@typescript-eslint/types" "6.21.0"
     eslint-visitor-keys "^3.4.1"
 
-"@userpilot/react-native@^0.0.1-beta.2":
-  version "0.0.1-beta.2"
-  resolved "https://registry.yarnpkg.com/@userpilot/react-native/-/react-native-0.0.1-beta.2.tgz#baef4ccfd86b961aecadccfea977212552dea3bb"
-  integrity sha512-c/D8OeTgGE+12ipm5Gy5mC3ZB/UMlWpzvAJH1ryVzMeXOC0oes6uL7DFH1fwN3XNOmWl35ZGJSttSkfVkYGI7A==
+"@userpilot/react-native@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@userpilot/react-native/-/react-native-1.0.1.tgz#0e65f85cd9c0a05756edf9fce167aa967b154b55"
+  integrity sha512-KUWZqyta159DyYeg5t3FP04aHUKsRWT4fZ7n5SpfZc3iBtRdmaL+NOXyEqNg07hCXEmihPVL8A8JBBp6yZFj0w==
 
 "@userpilot/segment-react-native@file:..":
   version "4.4.1"

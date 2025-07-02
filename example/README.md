@@ -50,7 +50,7 @@ This screen is identified as `Sign In` for screen targeting.
 Provide a User ID for use with `identify()`.
 Provide a User Company for use with `group()`.
 
-The navigation bar also includes a button to sign out using `reset()`.
+The navigation bar also includes a button to sign out using `logout()`.
 
 ### TrackEvents Screen
 
@@ -62,4 +62,4 @@ Track event with properties using `track()`.
 
 This screen is identified as `screenOne, ScreenTwo` for screen targeting.
 
-Two screen to track screen using `screen()`.
+Two screens to track screen using `screen()`.

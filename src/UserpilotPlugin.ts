@@ -7,6 +7,8 @@ import {
   UpdateType,
   IdentifyEventType,
   GroupEventType,
+  UserTraits,
+  GroupTraits,
 } from '@segment/analytics-react-native';
 import type { SegmentUserpilotSettings } from './types';
 import * as Userpilot from '@userpilot/react-native';
@@ -65,7 +67,8 @@ export class UserpilotPlugin extends DestinationPlugin {
 
     const userId = event.userId?.trim() || event.anonymousId?.trim();
     if (userId) {
-      Userpilot.identify(userId, event.traits);
+      const sanitizedTraits = this.sanitizeUserTraits(event.traits);
+      Userpilot.identify(userId, sanitizedTraits);
     }
 
     return event;
@@ -78,9 +81,11 @@ export class UserpilotPlugin extends DestinationPlugin {
     const userId = event.userId?.trim() || event.anonymousId?.trim();
     if (!userId) return event;
 
+    const sanitizedTraits = this.sanitizeGroupTraits(event.traits);
+
     const company = {
       id: event.groupId,
-      ...(event.traits || {}),
+      ...(sanitizedTraits || {}),
     };
 
     Userpilot.identify(userId, undefined, company);
@@ -109,6 +114,40 @@ export class UserpilotPlugin extends DestinationPlugin {
     if (this.isInitialized) {
       Userpilot.logout();
     }
+  }
+
+  private sanitizeUserTraits(
+    traits?: UserTraits
+  ): Record<string, any> | undefined {
+    if (!traits || typeof traits !== 'object') return;
+
+    const mapped: Record<string, any> = {};
+
+    for (const [key, value] of Object.entries(traits)) {
+      if (value == null) continue;
+
+      const targetKey = key === 'createdAt' ? 'created_at' : key;
+      mapped[targetKey] = value;
+    }
+
+    return mapped;
+  }
+
+  private sanitizeGroupTraits(
+    traits?: GroupTraits
+  ): Record<string, any> | undefined {
+    if (!traits || typeof traits !== 'object') return;
+
+    const mapped: Record<string, any> = {};
+
+    for (const [key, value] of Object.entries(traits)) {
+      if (value == null) continue;
+
+      const targetKey = key === 'createdAt' ? 'created_at' : key;
+      mapped[targetKey] = value;
+    }
+
+    return mapped;
   }
 }
 

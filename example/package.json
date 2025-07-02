@@ -1,7 +1,7 @@
 {
   "name": "segment-userpilot-react-native-example",
   "description": "Example app for segment-userpilot-react-native",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,7 +10,7 @@
     "build:android": "react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\""
   },
   "dependencies": {
-    "@userpilot/react-native": "^0.0.1-beta.2",
+    "@userpilot/react-native": "^1.0.1",
     "@userpilot/segment-react-native": "file:..",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^7.0.13",
