@@ -2759,13 +2759,13 @@
     "@typescript-eslint/types" "6.21.0"
     eslint-visitor-keys "^3.4.1"
 
-"@userpilot/react-native@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@userpilot/react-native/-/react-native-1.0.1.tgz#0e65f85cd9c0a05756edf9fce167aa967b154b55"
-  integrity sha512-KUWZqyta159DyYeg5t3FP04aHUKsRWT4fZ7n5SpfZc3iBtRdmaL+NOXyEqNg07hCXEmihPVL8A8JBBp6yZFj0w==
+"@userpilot/react-native@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@userpilot/react-native/-/react-native-1.0.3.tgz#8a667b2c75f30907e69e8c84096f5a0c9e513e1c"
+  integrity sha512-9MyAQ8GZrZT5WdhLU8StiHKJmbfqFWQg5BqnjMEv2/sNyIekxW90aV1EKt13e5wRcJXugOEF8mlmx6kJf4DLhw==
 
 "@userpilot/segment-react-native@file:..":
-  version "4.4.1"
+  version "1.0.0"
 
 abort-controller@^3.0.0:
   version "3.0.0"
