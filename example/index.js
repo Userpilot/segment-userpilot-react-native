@@ -10,7 +10,7 @@ import {
 import { UserpilotPlugin } from '@userpilot/segment-react-native';
 
 const segmentClient = createClient({
-  writeKey: 'rxsJqbKebdnai2HU9HG8XaNBAAz7DwHS',
+  writeKey: 'PLACEHOLDER_KEY',
   debug: false,
 });
 segmentClient.add({ plugin: new UserpilotPlugin(false) });
