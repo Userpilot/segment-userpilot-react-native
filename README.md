@@ -1,6 +1,6 @@
 # @userpilot/segment-react-native
 
-`DestinationPlugin` for [Userpilot](https://www.userpilot.com/). Wraps [`@userpilot/react-native`](https://github.com/userpilot/userpilot-react-native-module).
+`DestinationPlugin` for [Userpilot](https://www.userpilot.com/). Wraps [`@userpilot/react-native`](https://github.com/userpilot/segment-userpilot-react-native).
 
 ## Installation
 
