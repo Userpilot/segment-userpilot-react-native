@@ -31,14 +31,25 @@ export class UserpilotPlugin extends DestinationPlugin {
   key = 'Userpilot Mobile';
   protected isInitialized: boolean = false;
   protected logging: boolean;
+  protected useInAppBrowser: boolean;
+  protected disableRequestPushNotificationsPermission: boolean;
 
   /**
    * Constructor for UserpilotPlugin.
    * @param {boolean} logging - Optional parameter to enable logging. Default is false.
+   * @param {boolean} useInAppBrowser - Optional parameter to enable useInAppBrowser. Default is false.
+   * @param {boolean} disableRequestPushNotificationsPermission - Optional parameter to disableRequestPushNotificationsPermission. Default is false.
    */
-  constructor(logging = false) {
+  constructor(
+    logging = false,
+    useInAppBrowser = false,
+    disableRequestPushNotificationsPermission = false
+  ) {
     super();
     this.logging = logging;
+    this.useInAppBrowser = useInAppBrowser;
+    this.disableRequestPushNotificationsPermission =
+      disableRequestPushNotificationsPermission;
   }
 
   // This plugin is used to integrate Userpilot with Segment for mobile applications.
@@ -54,7 +65,12 @@ export class UserpilotPlugin extends DestinationPlugin {
     }
 
     try {
-      Userpilot.setup(userpilotSettings.token, { logging: this.logging });
+      Userpilot.setup(userpilotSettings.token, {
+        logging: this.logging,
+        useInAppBrowser: this.useInAppBrowser,
+        disableRequestPushNotificationsPermission:
+          this.disableRequestPushNotificationsPermission,
+      });
       this.isInitialized = true;
     } catch (error) {
       console.error('Userpilot setup failed:', error);

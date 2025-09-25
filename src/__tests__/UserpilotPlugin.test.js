@@ -42,10 +42,18 @@ describe('UserpilotPlugin', () => {
       const pluginDefault = new UserpilotPlugin();
       expect(pluginDefault.logging).toBe(false);
       expect(pluginDefault.isInitialized).toBe(false);
+      expect(pluginDefault.useInAppBrowser).toBe(false);
+      expect(pluginDefault.disableRequestPushNotificationsPermission).toBe(
+        false
+      );
     });
     it('should initialize with logging enabled when specified', () => {
       const pluginWithLogging = new UserpilotPlugin(true);
       expect(pluginWithLogging.logging).toBe(true);
+      expect(pluginWithLogging.useInAppBrowser).toBe(false);
+      expect(pluginWithLogging.disableRequestPushNotificationsPermission).toBe(
+        false
+      );
     });
   });
   describe('update()', () => {
@@ -54,6 +62,8 @@ describe('UserpilotPlugin', () => {
       plugin.update(mockSettings, {});
       expect(Userpilot.setup).toHaveBeenCalledWith('test-token-123', {
         logging: false,
+        useInAppBrowser: false,
+        disableRequestPushNotificationsPermission: false,
       });
       expect(getProtectedProperty(plugin, 'isInitialized')).toBe(true);
     });

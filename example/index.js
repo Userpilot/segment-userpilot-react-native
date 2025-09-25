@@ -13,7 +13,7 @@ const segmentClient = createClient({
   writeKey: 'PLACEHOLDER_KEY',
   debug: false,
 });
-segmentClient.add({ plugin: new UserpilotPlugin(false) });
+segmentClient.add({ plugin: new UserpilotPlugin(true, true, true) });
 
 const Index = () => (
   <>
