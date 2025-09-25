@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "@segment/analytics-react-native": "*",
-    "@userpilot/react-native": "^1.0.3"
+    "@userpilot/react-native": "^1.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -54,7 +54,7 @@
     "@segment/analytics-react-native": "^2.19.1",
     "@segment/sovran-react-native": "^1.0.4",
     "@types/jest": "^29.5.2",
-    "@userpilot/react-native": "^1.0.3",
+    "@userpilot/react-native": "^1.0.6",
     "babel-jest": "^29.5.0",
     "commitlint": "^11.0.0",
     "eslint": "^7.2.0",

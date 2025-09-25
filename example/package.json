@@ -10,7 +10,7 @@
     "build:android": "react-native build-android --extra-params \"--no-daemon --console=plain -PreactNativeArchitectures=arm64-v8a\""
   },
   "dependencies": {
-    "@userpilot/react-native": "^1.0.3",
+    "@userpilot/react-native": "^1.0.6",
     "@userpilot/segment-react-native": "file:..",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^7.0.13",
