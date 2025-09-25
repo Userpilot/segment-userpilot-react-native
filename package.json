@@ -1,6 +1,6 @@
 {
   "name": "@userpilot/segment-react-native",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Segment destination plugin for Userpilot.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
