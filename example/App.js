@@ -9,7 +9,6 @@ import ScreenOne from './screens/screens/ScreenOne';
 import ScreenTwo from './screens/screens/ScreenTwo';
 import DeepLinkScreen from './screens/deeplink/DeepLinkScreen';
 import TrackEventsScreen from './screens/events/TrackEventsScreen';
-import { Platform, PermissionsAndroid } from 'react-native';
 import { useAnalytics } from '@segment/analytics-react-native';
 import {
   startListeningToUserpilotEvents,
@@ -27,47 +26,6 @@ const commonScreenOptions = {
 const App = () => {
   const { reset } = useAnalytics();
   const navigation = useNavigation();
-
-  const requestNotificationPermission = useCallback(async () => {
-    if (Platform.OS === 'android' && Platform.Version >= 33) {
-      try {
-        const alreadyGranted = await PermissionsAndroid.check(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-        );
-
-        if (alreadyGranted) {
-          console.log('Notification permission already granted');
-          return;
-        }
-
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-          {
-            title: 'Notification Permission',
-            message: 'This app would like to send you notifications',
-            buttonPositive: 'Allow',
-            buttonNegative: 'Deny',
-          }
-        );
-
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('Notification permission granted');
-        } else {
-          console.log('Notification permission denied');
-        }
-      } catch (err) {
-        console.warn('Permission request error:', err);
-      }
-    }
-  }, []);
-
-  const initialize = useCallback(async () => {
-    await requestNotificationPermission();
-  }, [requestNotificationPermission]);
-
-  useEffect(() => {
-    initialize();
-  }, [initialize]);
 
   const handleDeepLink = useCallback(
     (url) => {
